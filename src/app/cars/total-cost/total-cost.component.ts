@@ -1,3 +1,4 @@
+import { CarsService } from './../cars.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -7,11 +8,15 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class TotalCostComponent{
 
-  @Input() totalCost : number;
-  @Output() shownGross : EventEmitter<number> = new EventEmitter<number>();
-  private VAT : number = 1.23;
+  @Input() totalCost: number;
+  @Output() shownGross: EventEmitter<number> = new EventEmitter<number>();
+  private VAT = 1.23;
 
-  showGross() : void {
-    this.shownGross.emit(this.totalCost*this.VAT);
+  constructor(private carsService: CarsService){
+    console.log(carsService.randomValue, 'TotalCostComponent');
+  }
+
+  showGross(): void {
+    this.shownGross.emit(this.totalCost * this.VAT);
   }
 }
