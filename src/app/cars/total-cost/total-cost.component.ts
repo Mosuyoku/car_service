@@ -12,9 +12,7 @@ export class TotalCostComponent{
   @Output() shownGross: EventEmitter<number> = new EventEmitter<number>();
   private VAT = 1.23;
 
-  constructor(private carsService: CarsService){
-    console.log(carsService.randomValue, 'TotalCostComponent');
-  }
+  constructor(private carsService: CarsService){  }
 
   showGross(): void {
     this.shownGross.emit(this.totalCost * this.VAT);

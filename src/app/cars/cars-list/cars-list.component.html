@@ -1,3 +1,11 @@
+<cs-header>
+  <p levels>cars</p>
+
+  <div content>
+    <p>List of cars in service</p>
+  </div>
+</cs-header>
+
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
@@ -14,7 +22,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let car of cars">
+                    <tr *ngFor="let car of cars" class="row-car" (click)="goToCarDetails(car)">
                         <td [ngClass]="{'row-error': car.isFullyDamaged}">{{ car?.model }}</td>
                         <td>{{ car?.plate }}</td>
                         <td>{{ car?.deliveryDate }}</td>
