@@ -23,12 +23,12 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let car of cars" class="row-car" (click)="goToCarDetails(car)">
-                        <td [ngClass]="{'row-error': car.isFullyDamaged}">{{ car?.model }}</td>
+                        <td csImportant [ngClass]="{'row-error': car.isFullyDamaged}">{{ car?.model | uppercase}}</td>
                         <td>{{ car?.plate }}</td>
-                        <td>{{ car?.deliveryDate }}</td>
-                        <td>{{ car?.deadline }}</td>
-                        <td>{{ car?.clientFirstName }} {{ car.clientSurname }}</td>
-                        <td>{{ car?.cost }}</td>
+                        <td>{{ car?.deliveryDate | date:'shortDate' }}</td>
+                        <td>{{ car?.deadline | date:'shortDate' }}</td>
+                        <td>{{ car?.clientFirstName }} {{ car.clientSurname | surnameShortcut }}</td>
+                        <td csImportant>{{ car?.cost | currency:'PLN':true }}</td>
                         <td>ACTION PLACEHOLDER</td>
 
                     </tr>
@@ -58,4 +58,86 @@
             </div>
         </div>
     </div>
+</div>
+
+<p class="data-header">Add a new car</p>
+
+<div class="data-container">
+  <form [formGroup]="carForm">
+    <div class="row form-group">
+      <div class="col-sm-4">
+        <label>Model</label><br>
+        <input formControlName="model" type="text" clss="form-control" placeholder="model">
+        <p *ngIf="!carForm.get('model').valid && carForm.get('model').dirty" class="error">This field is required!</p>
+      </div>
+      <div class="col-sm-4">
+        <label>Type</label><br>
+        <input formControlName="type" type="text" clss="form-control" placeholder="type">
+      </div>
+      <div class="col-sm-4">
+        <label>Plate</label><br>
+        <input formControlName="plate" type="text" clss="form-control" placeholder="plate">
+        <p *ngIf="!carForm.get('plate').valid && carForm.get('plate').dirty" class="error">This field is required and must contain 3-7 characters</p>
+
+      </div>
+    </div>
+
+    <div class="row form-group">
+      <div class="col-sm-4">
+        <label>Delivery date</label><br>
+        <input formControlName="deliveryDate" type="text" clss="form-control" placeholder="delivery date">
+      </div>
+      <div class="col-sm-4">
+        <label>Deadline</label><br>
+        <input formControlName="deadline" type="text" clss="form-control" placeholder="deadline">
+      </div>
+      <div class="col-sm-4">
+        <label>Is car fully damaged</label><br>
+        <input formControlName="isFullyDamaged" type="checkbox">
+      </div>
+    </div>
+
+    <div class="row form-group">
+      <div class="col-sm-4">
+        <label>Color</label><br>
+        <input formControlName="color" type="text" clss="form-control" placeholder="color">
+      </div>
+      <div class="col-sm-4">
+        <label>Power</label><br>
+        <input formControlName="power" type="text" clss="form-control" placeholder="power">
+      </div>
+      <div class="col-sm-4">
+        <label>Cost</label><br>
+        <input formControlName="cost" type="text" clss="form-control" placeholder="cost">
+      </div>
+    </div>
+
+
+    <div class="row form-group">
+      <div class="col-sm-4">
+        <label>Client First Name</label><br>
+        <input formControlName="clientFirstName" type="text" clss="form-control" placeholder="client first name">
+      </div>
+      <div class="col-sm-4">
+        <label>Client Last Name</label><br>
+        <input formControlName="clientSurname" type="text" clss="form-control" placeholder="clent last name">
+      </div>
+    <div class="col-sm-4">
+      <label>Year</label><br>
+      <input formControlName="year" type="text" clss="form-control" placeholder="year">
+    </div>
+  </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <button [disabled]="carForm.invalid" type="submit" (click)="addCar()" class="btn btn-primary float-right">
+          Add car
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <pre>{{ carForm.value | json }}</pre>
+  <pre>Stan walidacji inputa model: {{ carForm.get('model').valid | json }}</pre>
+  <pre>Stan walidacji inputa plate: {{ carForm.get('plate').valid | json }}</pre>
 </div>

@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { CarsListComponent } from './cars-list/cars-list.component';
 import { TotalCostComponent } from './total-cost/total-cost.component';
 import { CarDetailsComponent } from './car-details/car-details.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -15,7 +16,8 @@ import { CarDetailsComponent } from './car-details/car-details.component';
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
   providers: [
     CarResolve
