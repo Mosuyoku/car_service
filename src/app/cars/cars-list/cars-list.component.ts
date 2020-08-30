@@ -80,4 +80,11 @@ export class CarsListComponent implements OnInit, AfterViewInit {
       this.loadCars();
     });
   }
+
+  removeCar(car: Car, event: any): void{
+    event.stopPropagation();
+    this.carsService.removeCar(car.id).subscribe(() => {
+      this.loadCars();
+    });
+  }
 }
