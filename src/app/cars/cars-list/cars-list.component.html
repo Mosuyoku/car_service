@@ -22,15 +22,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let car of cars" class="row-car" (click)="goToCarDetails(car)">
-                        <td csImportant [ngClass]="{'row-error': car.isFullyDamaged}">{{ car?.model | uppercase}}</td>
-                        <td>{{ car?.plate }}</td>
-                        <td>{{ car?.deliveryDate | date:'shortDate' }}</td>
-                        <td>{{ car?.deadline | date:'shortDate' }}</td>
-                        <td>{{ car?.clientFirstName }} {{ car.clientSurname | surnameShortcut }}</td>
-                        <td csImportant>{{ car?.cost | currency:'PLN':true }}</td>
-                        <td (click)="removeCar(car, $event)">( X )</td>
-
+                    <tr *ngFor="let car of cars"
+                        class="row-car" (click)="goToCarDetails(car)"
+                        cs-car-table-row
+                        [car]="car"
+                        (removedCar)="onRemovedCar(car)"
+                    >
                     </tr>
                 </tbody>
             </table>
@@ -78,7 +75,6 @@
         <label>Plate</label><br>
         <input formControlName="plate" type="text" clss="form-control" placeholder="plate">
         <p *ngIf="!carForm.get('plate').valid && carForm.get('plate').dirty" class="error">This field is required and must contain 3-7 characters</p>
-
       </div>
     </div>
 
@@ -93,7 +89,7 @@
       </div>
       <div class="col-sm-4">
         <label>Is car fully damaged</label><br>
-        <input formControlName="isFullyDamaged" type="checkbox">
+        <input formControlName="isFullyDamaged" type="checkbox" (change)="togglePlateValidity()">
       </div>
     </div>
 
@@ -104,7 +100,10 @@
       </div>
       <div class="col-sm-4">
         <label>Power</label><br>
-        <input formControlName="power" type="text" clss="form-control" placeholder="power">
+        <input formControlName="power" type="number" clss="form-control" placeholder="power">
+        <p *ngIf="carForm.get('power').errors?.power && carForm.get('power').dirty" class="error">
+          Power value must be between 50 PS and 800 PS!
+        </p>
       </div>
       <div class="col-sm-4">
         <label>Cost</label><br>

@@ -2,7 +2,7 @@ import { FormGroup } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import { Car } from './models/car';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
